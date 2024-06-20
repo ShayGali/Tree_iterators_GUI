@@ -25,8 +25,8 @@ class Node {
     const vector<Node<T> *> &get_childrens() const { return children; }
     const T &get_data() const { return data; }
 
-    void add_child(Node<T> &child) {
-        children.push_back(&child);
+    void add_child(Node<T> *child) {
+        children.push_back(child);
     }
 
     void remove_children() {

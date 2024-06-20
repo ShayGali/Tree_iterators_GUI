@@ -22,8 +22,8 @@ class Tree {
     /**
      * @brief Add a root to the tree. If a root already exists, it will be replaced.
      */
-    void add_root(Node<T>& root) {
-        this->root = &root;
+    void add_root(Node<T>* root) {
+        this->root = root;
     }
 
     /**
@@ -33,11 +33,11 @@ class Tree {
      * Else, the new node will be added as the left child.
      */
 
-    void add_sub_node(Node<T>& parent, Node<T>& child) {
-        if (parent.get_childrens().size() >= K) {
+    void add_sub_node(Node<T>* parent, Node<T>* child) {
+        if (parent->get_childrens().size() >= K) {
             throw std::runtime_error("Parent already has " + std::to_string(K) + " children, can't add more.");
         }
-        parent.add_child(child);
+        parent->add_child(child);
     }
 
     ~Tree() {
@@ -53,7 +53,6 @@ class Tree {
         }
 
         root = nullptr;
-
     }
 
     bfs_scan_iterator<T> begin() {
@@ -137,6 +136,10 @@ class Tree {
 
         int childX = x - (node->get_childrens().size() - 1) * horizontalSpacing / 2;
         for (Node<T>* child : node->get_childrens()) {
+            if (child == nullptr) {
+                childX += horizontalSpacing;
+                continue;
+            }
             // Draw the line between the parent and the child
             scene->addLine(x + circleSize / 2, y + circleSize, childX + circleSize / 2, y + verticalSpacing, QPen(Qt::black));
             draw(scene, child, childX, y + verticalSpacing, circleSize, horizontalSpacing / 2, verticalSpacing);
@@ -155,15 +158,15 @@ class Tree<T, 2> {
     Tree() : root(nullptr) {
     }
 
-    void add_root(Node<T>& root) {
-        this->root = &root;
+    void add_root(Node<T>* root) {
+        this->root = root;
     }
 
-    void add_sub_node(Node<T>& parent, Node<T>& child) {
-        if (parent.get_childrens().size() >= 2) {
+    void add_sub_node(Node<T>* parent, Node<T>* child) {
+        if (parent->get_childrens().size() >= 2) {
             throw std::runtime_error("Parent already has 2 children, can't add more.");
         }
-        parent.add_child(child);
+        parent->add_child(child);
     }
 
     ~Tree() {
@@ -261,6 +264,10 @@ class Tree<T, 2> {
 
         int childX = x - (node->get_childrens().size() - 1) * horizontalSpacing / 2;
         for (Node<T>* child : node->get_childrens()) {
+            if (child == nullptr) {
+                childX += horizontalSpacing;
+                continue;
+            }
             // Draw the line between the parent and the child
             scene->addLine(x + circleSize / 2, y + circleSize, childX + circleSize / 2, y + verticalSpacing, QPen(Qt::black));
             draw(scene, child, childX, y + verticalSpacing, circleSize, horizontalSpacing / 2, verticalSpacing);

@@ -19,12 +19,10 @@ run.depends = first # Depend on the first build target, ensuring the program is 
 tree.target = tree
 tree.commands = ./main
 tree.depends = first # Depend on the first build target, ensuring the program is built before running
-
-
 QMAKE_EXTRA_TARGETS += run tree
 
 # Add the tree executable to the clean files
-QMAKE_CLEAN += main .qmake.stash
+QMAKE_CLEAN += main .qmake.stash test
 
 # Add the -std=c++2a flag to the C++ compiler
 QMAKE_CXXFLAGS += -std=c++2a -g

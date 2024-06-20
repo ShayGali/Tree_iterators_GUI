@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <queue>
 #include <stack>
 #include <vector>
@@ -10,8 +9,6 @@
 using std::queue;
 using std::stack;
 using std::vector;
-
-
 
 template <typename T>
 class in_order_iterator {
@@ -23,7 +20,7 @@ class in_order_iterator {
         stck.push(nullptr);
         while (root != nullptr) {
             stck.push(root);
-            if (root->get_childrens().size() > 0) {
+            if (root->get_childrens().size() > 0 && root->get_childrens().at(0) != nullptr) {
                 root = root->get_childrens().at(0);
             } else {
                 root = nullptr;
@@ -37,12 +34,12 @@ class in_order_iterator {
     in_order_iterator& operator++() {
         Node<T>* node = stck.top();
         stck.pop();
-        if (node->get_childrens().size() > 1) {
+        if (node->get_childrens().size() > 1 && node->get_childrens().at(1) != nullptr) {
             Node<T>* right_child = node->get_childrens().at(1);
             stck.push(right_child);
             // push all the left children of the right child
             Node<T>* right_child_left_child = right_child;
-            while (right_child_left_child->get_childrens().size() > 0) {
+            while (right_child_left_child->get_childrens().size() > 0 && right_child_left_child->get_childrens().at(0) != nullptr) {
                 right_child_left_child = right_child_left_child->get_childrens().at(0);
                 stck.push(right_child_left_child);
             }
@@ -112,17 +109,17 @@ class post_order_iterator {
             Node<T>* current = stck.top();
             // if we are going down the tree
             if (prev == nullptr || (prev->get_childrens().size() > 0 && prev->get_childrens().at(0) == current) || (prev->get_childrens().size() > 1 && prev->get_childrens().at(1) == current)) {
-                if (current->get_childrens().size() > 0) {         // if has left child
-                    stck.push(current->get_childrens().at(0));     // go left
-                } else if (current->get_childrens().size() > 1) {  // don't have left child, but have right child
-                    stck.push(current->get_childrens().at(1));     // go right
-                } else {                                           // leaf
+                if (current->get_childrens().size() > 0 && current->get_childrens().at(0) != nullptr) {         // has left child
+                    stck.push(current->get_childrens().at(0));                                                  // go left
+                } else if (current->get_childrens().size() > 1 && current->get_childrens().at(1) != nullptr) {  // has right child
+                    stck.push(current->get_childrens().at(1));                                                  // go right
+                } else {                                                                                        // leaf
                     post_order.push_back(current);
                     stck.pop();
                 }
                 // if we are going up the tree from left child
             } else if (current->get_childrens().size() > 0 && prev == current->get_childrens().at(0)) {
-                if (current->get_childrens().size() > 1) {  // if has right child
+                if (current->get_childrens().size() > 1 && current->get_childrens().at(1) != nullptr) {  // has right child
                     stck.push(current->get_childrens().at(1));
                 } else {
                     post_order.push_back(current);
@@ -172,7 +169,9 @@ class bfs_scan_iterator {
         Node<T>* node = q.front();
         q.pop();
         for (auto child : node->get_childrens()) {
-            q.push(child);
+            if (child != nullptr) {
+                q.push(child);
+            }
         }
         return *this;
     }
@@ -204,7 +203,9 @@ class dfs_scan_iterator {
         Node<T>* node = stck.top();
         stck.pop();
         for (int i = node->get_childrens().size() - 1; i >= 0; i--) {
-            stck.push(node->get_childrens().at(i));
+            if (node->get_childrens().at(i) != nullptr) {
+                stck.push(node->get_childrens().at(i));
+            }
         }
         return *this;
     }
