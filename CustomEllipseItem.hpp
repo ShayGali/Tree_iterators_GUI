@@ -5,6 +5,9 @@
 #include <QGraphicsTextItem>
 #include <QPen>
 
+/**
+ * Component that help me display an ellipse with text inside when I hover on other items.
+ */
 class CustomEllipseItem : public QGraphicsEllipseItem {
    private:
     QString nodeData;

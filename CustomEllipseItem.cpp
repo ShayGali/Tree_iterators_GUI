@@ -16,10 +16,10 @@ void CustomEllipseItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
         textItem->setDefaultTextColor(Qt::black);
 
         // Create a square (rectangle) around the text
-        qreal padding = 5;  // Padding around the text
-        QRectF textBounds = textItem->boundingRect();
-        QRectF rectBounds(textBounds.x() - padding, textBounds.y() - padding,
-                          textBounds.width() + 2 * padding, textBounds.height() + 2 * padding);
+        qreal padding = 5;                             // Padding around the text
+        QRectF textBounds = textItem->boundingRect();  // Get the bounding rectangle of the text
+        // Create a rectangle around the text
+        QRectF rectBounds(textBounds.x() - padding, textBounds.y() - padding, textBounds.width() + 2 * padding, textBounds.height() + 2 * padding);
         rectItem = new QGraphicsRectItem(rectBounds, textItem);  // Make the rectangle a child of the text item
         rectItem->setPen(QPen(Qt::black));                       // Set the color of the square
 
