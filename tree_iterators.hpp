@@ -17,23 +17,26 @@ class in_order_iterator {
 
    public:
     in_order_iterator(Node<T>* root) {
+        // push all the left children of the root
         stck.push(nullptr);
         while (root != nullptr) {
             stck.push(root);
-            if (root->get_childrens().size() > 0 && root->get_childrens().at(0) != nullptr) {
+            if (root->get_childrens().size() > 0 && root->get_childrens().at(0) != nullptr) {  // has left child
                 root = root->get_childrens().at(0);
             } else {
-                root = nullptr;
+                root = nullptr;  // end the loop
             }
         }
     }
 
     T& operator*() { return stck.top()->get_data(); }
+
     Node<T>* operator->() { return stck.top(); }
 
     in_order_iterator& operator++() {
         Node<T>* node = stck.top();
         stck.pop();
+        // if the node has a right child, push it and all its left children
         if (node->get_childrens().size() > 1 && node->get_childrens().at(1) != nullptr) {
             Node<T>* right_child = node->get_childrens().at(1);
             stck.push(right_child);
@@ -44,6 +47,7 @@ class in_order_iterator {
                 stck.push(right_child_left_child);
             }
         }
+
         return *this;
     }
 
@@ -60,8 +64,11 @@ class pre_order_iterator {
 
    public:
     pre_order_iterator(Node<T>* root) {
-        stck.push(nullptr);
-        stck.push(root);
+        stck.push(nullptr);  // for the end
+        if (root != nullptr) {
+            // start from the root
+            stck.push(root);
+        }
     }
 
     T& operator*() { return stck.top()->get_data(); }
@@ -78,6 +85,7 @@ class pre_order_iterator {
         if (node->get_childrens().size() > 0 && node->get_childrens().at(0) != nullptr) {
             stck.push(node->get_childrens().at(0));
         }
+
         return *this;
     }
 
@@ -93,8 +101,8 @@ class pre_order_iterator {
 template <typename T>
 class post_order_iterator {
    private:
-    vector<Node<T>*> post_order;
-    int index;
+    vector<Node<T>*> post_order;  // the post order of the tree
+    int index;                    // the index of the current node in the post order
 
    public:
     post_order_iterator(Node<T>* root) {
@@ -135,6 +143,7 @@ class post_order_iterator {
     }
 
     T& operator*() { return post_order[index]->get_data(); }
+
     Node<T>* operator->() { return post_order[index]; }
 
     post_order_iterator& operator++() {
@@ -158,7 +167,7 @@ class bfs_scan_iterator {
         if (root == nullptr) {
             return;
         }
-
+        // start from the root
         q.push(root);
     }
 
@@ -168,11 +177,14 @@ class bfs_scan_iterator {
     bfs_scan_iterator& operator++() {
         Node<T>* node = q.front();
         q.pop();
-        for (auto child : node->get_childrens()) {
-            if (child != nullptr) {
-                q.push(child);
+
+        // push all the children of the node
+        for (int i = 0; i < node->get_childrens().size(); i++) {
+            if (node->get_childrens().at(i) != nullptr) {
+                q.push(node->get_childrens().at(i));
             }
         }
+
         return *this;
     }
 
@@ -192,16 +204,18 @@ class dfs_scan_iterator {
         if (root == nullptr) {
             return;
         }
-
+        // start from the root
         stck.push(root);
     }
 
     const T& operator*() { return stck.top()->get_data(); }
+
     Node<T>* operator->() { return stck.top(); }
 
     dfs_scan_iterator& operator++() {
         Node<T>* node = stck.top();
         stck.pop();
+        // push all the children of the node in reverse order
         for (int i = node->get_childrens().size() - 1; i >= 0; i--) {
             if (node->get_childrens().at(i) != nullptr) {
                 stck.push(node->get_childrens().at(i));
@@ -219,8 +233,8 @@ class dfs_scan_iterator {
 template <typename T>
 class make_heap_iterator {
    private:
-    vector<Node<T>*> heap;
-    int i;
+    vector<Node<T>*> heap;  // for the heap nodes
+    int i;                  // the index of the current node in the heap
 
    public:
     make_heap_iterator(Node<T>* root) {
@@ -239,6 +253,7 @@ class make_heap_iterator {
     }
 
     T& operator*() { return heap[i]->get_data(); }
+
     Node<T>* operator->() { return heap[i]; }
 
     make_heap_iterator& operator++() {
