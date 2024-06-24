@@ -27,7 +27,7 @@ TEST_CASE("binary tree") {
     tree.add_sub_node(&n6, nullptr);
     tree.add_sub_node(&n6, &n7);
     /*
-    tree shuld look like this:
+    tree should look like this:
             1
            /  \
           2    3
@@ -73,6 +73,14 @@ TEST_CASE("binary tree") {
         int expected[] = {1, 2, 4, 5, 3, 6, 7};
         int i = 0;
         for (auto node = tree.begin_dfs_scan(); node != tree.end_dfs_scan(); ++node, ++i) {
+            CHECK(node->get_data() == expected[i]);
+        }
+    }
+
+    SUBCASE("heap traversal") {
+        int expected[] = {1, 2, 3, 4, 5, 6, 7};
+        int i = 0;
+        for (auto node = tree.begin_make_heap(); node != tree.end_make_heap(); ++node, ++i) {
             CHECK(node->get_data() == expected[i]);
         }
     }

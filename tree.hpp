@@ -232,6 +232,14 @@ class Tree<T, 2> {
         return dfs_scan_iterator<T>(nullptr);
     }
 
+    make_heap_iterator<T> begin_make_heap() {
+        return make_heap_iterator<T>(root);
+    }
+
+    make_heap_iterator<T> end_make_heap() {
+        return make_heap_iterator<T>(nullptr);
+    }
+
     friend std::ostream& operator<<(std::ostream& os, const Tree& tree) {
         tree.draw(300, 50);
         return os;

@@ -196,7 +196,7 @@ class dfs_scan_iterator {
         stck.push(root);
     }
 
-    T& operator*() { return stck.top()->get_data(); }
+    const T& operator*() { return stck.top()->get_data(); }
     Node<T>* operator->() { return stck.top(); }
 
     dfs_scan_iterator& operator++() {
@@ -212,6 +212,42 @@ class dfs_scan_iterator {
 
     bool operator==(const dfs_scan_iterator& other) const { return stck.size() == other.stck.size(); }
     bool operator!=(const dfs_scan_iterator& other) const {
+        return !(*this == other);
+    }
+};
+
+template <typename T>
+class make_heap_iterator {
+   private:
+    vector<Node<T>*> heap;
+    int i;
+
+   public:
+    make_heap_iterator(Node<T>* root) {
+        i = 0;
+        if (root == nullptr) {
+            return;
+        }
+
+        // put all the nodes in the tree in a vector
+        for (auto it = bfs_scan_iterator<T>(root); it != bfs_scan_iterator<T>(nullptr); ++it) {
+            heap.push_back(it.operator->());
+        }
+
+        // make the vector a heap
+        std::make_heap(heap.begin(), heap.end(), [](Node<T>* a, Node<T>* b) { return a->get_data() > b->get_data(); });
+    }
+
+    T& operator*() { return heap[i]->get_data(); }
+    Node<T>* operator->() { return heap[i]; }
+
+    make_heap_iterator& operator++() {
+        i++;
+        return *this;
+    }
+
+    bool operator==(const make_heap_iterator& other) const { return heap.size() - i == other.heap.size() - other.i; }
+    bool operator!=(const make_heap_iterator& other) const {
         return !(*this == other);
     }
 };
