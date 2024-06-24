@@ -43,8 +43,8 @@ class Node {
             s = to_string(get_data());
         }
 
-        if (s.length() > 7) {
-            return s.substr(0, 4) + "...";
+        if (s.length() > 11) {
+            return s.substr(0, 8) + "...";
         }
         return s;
     }

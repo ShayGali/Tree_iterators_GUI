@@ -1,8 +1,8 @@
-#include <string>
 #include <iostream>
+#include <string>
 
-using std::string;
 using std::ostream;
+using std::string;
 
 class Complex {
    private:
@@ -20,8 +20,8 @@ class Complex {
 
     string to_str() const;
 
+    bool operator<(const Complex &other);
     friend ostream &operator<<(ostream &os, const Complex &complex);
 };
-
 
 string to_string(const Complex &complex);

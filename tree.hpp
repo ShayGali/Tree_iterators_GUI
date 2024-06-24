@@ -107,7 +107,7 @@ class Tree {
         return os;
     }
 
-    void draw(int x, int y, int circleSize = 50, int horizontalSpacing = 250, int verticalSpacing = 150) const {
+    void draw(int x, int y, int circleSize = 75, int horizontalSpacing = 350, int verticalSpacing = 150) const {
         int argc = 0;
         char** argv = {nullptr};
         QApplication app(argc, argv);
@@ -237,7 +237,7 @@ class Tree<T, 2> {
         return os;
     }
 
-    void draw(int x, int y, int circleSize = 50, int horizontalSpacing = 250, int verticalSpacing = 150) const {
+    void draw(int x, int y, int circleSize = 75, int horizontalSpacing = 350, int verticalSpacing = 150) const {
         int argc = 0;
         char** argv = {nullptr};
         QApplication app(argc, argv);
