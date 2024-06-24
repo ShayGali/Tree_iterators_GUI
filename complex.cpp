@@ -23,25 +23,28 @@ bool Complex::operator==(const Complex &other) const {
 std::string Complex::to_str() const {
     std::ostringstream oss;
 
+    // If real part is 0, then the imaginary part is the only part.
     if (real != 0 || imag == 0) {
         oss << real;
     }
 
-    if (imag != 0) {
-        if (imag > 0 && real != 0) {
+    if (imag != 0) { // If imaginary part is 0, then the real part is the only part.
+        if (imag > 0 && real != 0) { // If imaginary part is positive, then add a plus sign.
             oss << " + ";
-        } else if (imag < 0) {
-            if (real != 0) {
+        } else if (imag < 0) { // If imaginary part is negative, then add a minus sign.
+            if (real != 0) { // If real part is not 0 add padding (space) between the minus sign and the number.
                 oss << " - ";
             } else {
                 oss << "-";
             }
         }
-
+        
+        // remove the sign if the imaginary part is 1 or -1
         if (imag != 1 && imag != -1) {
             oss << std::abs(imag);
         }
 
+        // and add the imaginary unit
         oss << "i";
     }
 
