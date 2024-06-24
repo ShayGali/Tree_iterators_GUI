@@ -16,7 +16,6 @@ class Complex {
     double getImag();
 
     bool operator==(const Complex &other) const;
-    // bool operator<(const Complex &other) const;
 
     string to_str() const;
 
