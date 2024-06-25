@@ -180,7 +180,7 @@ class bfs_scan_iterator {
         q.pop();
 
         // push all the children of the node
-        for (int i = 0; i < node->get_childrens().size(); i++) {
+        for (size_t i = 0; i < node->get_childrens().size(); i++) {
             if (node->get_childrens().at(i) != nullptr) {
                 q.push(node->get_childrens().at(i));
             }

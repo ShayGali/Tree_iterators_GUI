@@ -139,11 +139,11 @@ int main() {
 
     {
         cout << "String tree GUI:" << endl;
-        Node<string> root("Shay");
-        Node<string> r1_1("Shalom");
-        Node<string> r1_2("Gali");
-        Node<string> r2_1_1("HOIIII");
-        Node<string> r2_1_2("MICHAELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+        Node<string> root("root");
+        Node<string> r1_1("r1_1");
+        Node<string> r1_2("r1_2");
+        Node<string> r2_1_1("r2_1_1");
+        Node<string> r2_1_2("HOIIIIIIIIIIIIIII");
 
         Tree<string> s_tree;
         s_tree.add_root(&root);
