@@ -34,6 +34,8 @@ class Node {
 
     const T &get_data() const { return data; }
 
+    T &get_data() { return data; }
+
     void add_child(Node<T> *child) {
         children.push_back(child);
     }
