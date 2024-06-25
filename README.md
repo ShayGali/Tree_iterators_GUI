@@ -28,9 +28,11 @@ Tree<int, 2> tree; // create a binary tree of integers
 Tree<Complex, 3> tree; // create a ternary tree of complex numbers
 ```
 
+> To se full usage of the tree class, see [main.cpp](main.cpp) and [tests.cpp](tests/tests.cpp)
+
 We add a `Complex` class to represent complex numbers. the class have basic function like getters, `==` operator, `<` operator, `to_string` function, and `<<` operator.
 
-> Although we dont define a total order for complex numbers, we define this an order based on the norm of the complex number. (This is the assignment requirement)
+> [!IMPORTANT] Although we don't define a total order for complex numbers, we define this an order based on the norm of the complex number. (This is the assignment requirement)
 
 The CustomEllipseItem class help me display an ellipse with text inside when I hover on other items.
 
