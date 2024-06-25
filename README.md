@@ -32,7 +32,8 @@ Tree<Complex, 3> tree; // create a ternary tree of complex numbers
 
 We add a `Complex` class to represent complex numbers. the class have basic function like getters, `==` operator, `<` operator, `to_string` function, and `<<` operator.
 
-> [!IMPORTANT] Although we don't define a total order for complex numbers, we define this an order based on the norm of the complex number. (This is the assignment requirement)
+> [!IMPORTANT]
+> Although we don't define a total order for complex numbers, we define this an order based on the norm of the complex number. (This is the assignment requirement)
 
 The CustomEllipseItem class help me display an ellipse with text inside when I hover on other items.
 
