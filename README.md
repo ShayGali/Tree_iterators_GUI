@@ -38,7 +38,9 @@ The CustomEllipseItem class help me display an ellipse with text inside when I h
 The Tree GUI:
 ![alt text](/assets/tree.png)
 
+
 The hover effect for long text:
+
 ![alt text](/assets/hover.png)
 
 ## usage
