@@ -1,3 +1,4 @@
+// @author shay.gali@msmail.ariel.ac.il
 #include "CustomEllipseItem.hpp"
 
 CustomEllipseItem::CustomEllipseItem(qreal x, qreal y, qreal w, qreal h, const QString& data, QGraphicsItem* parent)
