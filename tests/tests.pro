@@ -20,5 +20,9 @@ run.target = run
 run.commands = ./test
 run.depends = first # Depend on the first build target, ensuring the program is built before running
 
+# Define a custom target to run the program with `make valgrind`
+valgrind.target = valgrind
+valgrind.commands = valgrind ./test --tool=memcheck -v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
+valgrind.depends = first
 
-QMAKE_EXTRA_TARGETS += run
+QMAKE_EXTRA_TARGETS += run valgrind

@@ -24,6 +24,11 @@ tree.depends = first # Depend on the first build target, ensuring the program is
 test.target = test
 test.commands = make -C tests run
 
+# Define a custom target to run the tests with `make valgrind`
+valgrind.target = valgrind
+valgrind.commands = valgrind ./main --tool=memcheck -v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
+valgrind.depends = first
+
 # Add the tree executable to the clean files
 QMAKE_CLEAN += main .qmake.stash test
 
@@ -31,4 +36,4 @@ QMAKE_CLEAN += main .qmake.stash test
 QMAKE_CXXFLAGS += -std=c++2a -g
 
 # Add the custom targets to the list of extra targets
-QMAKE_EXTRA_TARGETS += run tree test
+QMAKE_EXTRA_TARGETS += run tree test valgrind
