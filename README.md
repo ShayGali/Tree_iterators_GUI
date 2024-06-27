@@ -6,10 +6,11 @@ we use QT5 for the GUI. To compile with make file we use `qmake` to generate the
 
 ## class hierarchy
 
-we have 3 main classes:
+we have 4 main classes:
 1. Node: a class that represents a node in the tree. The class is templated to allow the user to store any type of data in the node, and it has a list of children nodes.
-2. Tree: a class that represents a tree data structure. The class is templated to allow the user to store any type of data in the tree, and it has a root node.
-3. Tree Iterators: a family of classes that allow the user to iterate over the nodes of the tree in different ways. The family includes:
+2. BaseTree: This class have all the common attributes and methods for the tree class. It have a `root` attribute, virtual destructor, and root and children to a node, and common iterators.
+3. Tree: a class can be a k-ary tree or a binary tree. The difference is in the in/pre/post order iterators, and for binary tree we have make_heap iterator.
+4. Tree Iterators: a family of classes that allow the user to iterate over the nodes of the tree in different ways. The family includes:
     - in_order_iterator: an iterator that iterates over a binary tree in in-order traversal.
     - pre_order_iterator: an iterator that iterates over a binary tree in pre-order traversal.
     - post_order_iterator: an iterator that iterates over a binary tree in post-order traversal.
