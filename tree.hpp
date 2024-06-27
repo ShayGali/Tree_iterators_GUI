@@ -11,6 +11,11 @@
 #include "node.hpp"
 #include "tree_iterators.hpp"
 
+/**
+ * @brief A base class for a tree.
+ * Have common methods for all trees.
+ 
+ */
 template <typename T, int K>
 class BaseTree {
    protected:
@@ -127,6 +132,11 @@ class BaseTree {
     }
 };
 
+/**
+ * This is a generic tree class, it can be used with any type of data.
+ * This class extends the BaseTree class and adds methods for iterating the tree in different orders.
+ * There is another specialization for K = 2, which change the iterators.
+ */
 template <typename T, int K = 2>
 class Tree : public BaseTree<T, K> {
    public:
@@ -155,7 +165,9 @@ class Tree : public BaseTree<T, K> {
     }
 };
 
-// specializations for K = 2
+/**
+ * A specialization for K = 2, which change the iterators.
+ */
 template <typename T>
 class Tree<T, 2> : public BaseTree<T, 2> {
    public:
