@@ -324,7 +324,7 @@ distdir: FORCE
 
 clean: compiler_clean 
 	-$(DEL_FILE) $(OBJECTS)
-	-$(DEL_FILE) main test
+	-$(DEL_FILE) main .qmake.stash test
 	-$(DEL_FILE) *~ core *.core
 
 
