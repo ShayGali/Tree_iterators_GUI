@@ -20,7 +20,7 @@ class BaseTree {
     BaseTree() : root(nullptr) {
     }
 
-    virtual ~BaseTree() {
+    ~BaseTree() {
         bfs_scan_iterator<T> it = begin_bfs_scan();
         bfs_scan_iterator<T> prev = it;
         bfs_scan_iterator<T> end = end_bfs_scan();
