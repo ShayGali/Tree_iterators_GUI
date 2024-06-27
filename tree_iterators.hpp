@@ -255,9 +255,10 @@ class make_heap_iterator {
 
     T& operator*() { return heap[i]->get_data(); }
 
-    Node<T>* operator->() { return heap[i]; }
+    Node<T>* operator->() { return heap[0]; }
 
     make_heap_iterator& operator++() {
+        std::pop_heap(heap.begin(), heap.end() - i, [](Node<T>* a, Node<T>* b) { return a->get_data() > b->get_data(); });
         i++;
         return *this;
     }
