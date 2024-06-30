@@ -68,7 +68,6 @@ TEST_CASE("binary tree") {
         for (auto node = tree.begin_bfs_scan(); node != tree.end_bfs_scan(); ++node, ++i) {
             CHECK(node->get_data() == expected[i]);
         }
-        // size_t is unsigned
     }
 
     SUBCASE("dfs traversal") {
