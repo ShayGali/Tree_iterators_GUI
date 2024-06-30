@@ -14,7 +14,7 @@
 /**
  * @brief A base class for a tree.
  * Have common methods for all trees.
- 
+
  */
 template <typename T, size_t K>
 class BaseTree {
@@ -95,38 +95,50 @@ class BaseTree {
         QGraphicsScene scene;
         QGraphicsView view(&scene);
         view.setBackgroundBrush(Qt::white);
-        draw(&scene, root, x, y, circleSize, horizontalSpacing, verticalSpacing);
+
+        vector<QGraphicsItem*> items;
+
+        draw(&scene, root, x, y, circleSize, horizontalSpacing, verticalSpacing, items);
 
         view.show();
 
         app.exec();
+
+        app.quit();
     }
 
    private:
-    void draw(QGraphicsScene* scene, Node<T>* node, int x, int y, int circleSize, int horizontalSpacing, int verticalSpacing, int depth = 0) const {
+    void draw(QGraphicsScene* scene, Node<T>* node, int x, int y, int circleSize, int horizontalSpacing, int verticalSpacing, vector<QGraphicsItem*>& items, int depth = 0) const {
         if (!node) return;
 
         // Create and add the custom ellipse item to the scene
         CustomEllipseItem* ellipse = new CustomEllipseItem(x, y, circleSize, circleSize, QString::fromStdString(node->to_str()));
+        items.push_back(ellipse);
         scene->addItem(ellipse);
 
+        // add a text item to the scene that contains the node's data
         QGraphicsTextItem* text = scene->addText(QString::fromStdString(node->to_short_string()));
         text->setPos(x + circleSize / 2 - text->boundingRect().width() / 2, y + circleSize / 2 - text->boundingRect().height() / 2);
 
-        // More aggressive adjustment for horizontal spacing based on depth
-        int depthFactor = std::pow(2, depth);                                                   // Exponential growth factor
+        // calculate the horizontal spacing between children nodes
+        int depthFactor = std::pow(2, depth);                                                   // Exponential growth factor(2^depth)
         int adjustedHorizontalSpacing = std::max(horizontalSpacing / depthFactor, circleSize);  // Ensure spacing doesn't become too small
 
+        // Calculate the x position of the first child node
         int childX = x - (node->get_childrens().size() - 1) * adjustedHorizontalSpacing / 2;
+
+        // Draw the children nodes
         for (Node<T>* child : node->get_childrens()) {
-            if (child == nullptr) {
+            if (child == nullptr) {  // if the child is nullptr, just add the horizontal spacing and continue
                 childX += adjustedHorizontalSpacing;
                 continue;
             }
+
             // Draw the line between the parent and the child
             scene->addLine(x + circleSize / 2, y + circleSize, childX + circleSize / 2, y + verticalSpacing, QPen(Qt::black));
+
             // Recursively draw child nodes with more aggressively adjusted spacing
-            draw(scene, child, childX, y + verticalSpacing, circleSize, horizontalSpacing, verticalSpacing, depth + 1);
+            draw(scene, child, childX, y + verticalSpacing, circleSize, horizontalSpacing, verticalSpacing, items, depth + 1);
             childX += adjustedHorizontalSpacing;
         }
     }
