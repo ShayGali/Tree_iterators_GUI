@@ -346,7 +346,7 @@ test:
 	make -C tests run
 
 valgrind: first
-	valgrind ./main --tool=memcheck -v --leak-check=full --show-leak-kinds=all --error-exitcode=99
+	valgrind ./main --tool=memcheck -v --leak-check=full --show-leak-kinds=all --suppressions=qt.supp --error-exitcode=99
 
 mocclean: compiler_moc_header_clean compiler_moc_objc_header_clean compiler_moc_source_clean
 

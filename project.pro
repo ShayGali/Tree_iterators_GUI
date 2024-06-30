@@ -25,8 +25,9 @@ test.target = test
 test.commands = make -C tests run
 
 # Define a custom target to run the tests with `make valgrind`
+# we add qt to suppression list to avoid false positives
 valgrind.target = valgrind
-valgrind.commands = valgrind ./main --tool=memcheck -v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
+valgrind.commands = valgrind ./main --tool=memcheck -v --leak-check=full --show-leak-kinds=all --suppressions=qt.supp --error-exitcode=99
 valgrind.depends = first
 
 # Add the tree executable to the clean files
