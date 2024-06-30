@@ -16,7 +16,7 @@
  * Have common methods for all trees.
  
  */
-template <typename T, int K>
+template <typename T, size_t K>
 class BaseTree {
    protected:
     Node<T>* root;
@@ -137,7 +137,7 @@ class BaseTree {
  * This class extends the BaseTree class and adds methods for iterating the tree in different orders.
  * There is another specialization for K = 2, which change the iterators.
  */
-template <typename T, int K = 2>
+template <typename T, size_t K = 2>
 class Tree : public BaseTree<T, K> {
    public:
     dfs_scan_iterator<T> begin_in_order() {
