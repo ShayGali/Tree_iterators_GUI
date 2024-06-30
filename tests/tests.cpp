@@ -68,6 +68,7 @@ TEST_CASE("binary tree") {
         for (auto node = tree.begin_bfs_scan(); node != tree.end_bfs_scan(); ++node, ++i) {
             CHECK(node->get_data() == expected[i]);
         }
+        // size_t is unsigned
     }
 
     SUBCASE("dfs traversal") {
@@ -84,6 +85,16 @@ TEST_CASE("binary tree") {
         for (auto node = tree.begin_make_heap(); node != tree.end_make_heap(); ++node, ++i) {
             CHECK(node->get_data() == expected[i]);
         }
+    }
+
+    SUBCASE("empty tree") {
+        Tree<int, 2> tree;
+        CHECK(tree.begin_in_order() == tree.end_in_order());
+        CHECK(tree.begin_pre_order() == tree.end_pre_order());
+        CHECK(tree.begin_post_order() == tree.end_post_order());
+        CHECK(tree.begin_bfs_scan() == tree.end_bfs_scan());
+        CHECK(tree.begin_dfs_scan() == tree.end_dfs_scan());
+        CHECK(tree.begin_make_heap() == tree.end_make_heap());
     }
 }
 
@@ -129,5 +140,11 @@ TEST_CASE("trenaury tree") {
         for (auto node = tree.begin_bfs_scan(); node != tree.end_bfs_scan(); ++node, ++i) {
             CHECK(node->get_data() == expected[i]);
         }
+    }
+
+    SUBCASE("empty tree") {
+        Tree<int, 3> tree;
+        CHECK(tree.begin_dfs_scan() == tree.end_dfs_scan());
+        CHECK(tree.begin_bfs_scan() == tree.end_bfs_scan());
     }
 }
